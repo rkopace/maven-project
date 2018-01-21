@@ -3,7 +3,7 @@ pipeline {
     stages{
         stage('Build'){
             steps {
-                echo 'dupa'
+                 bat 'mvn --version'
             }
         }
     }
