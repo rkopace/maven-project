@@ -17,7 +17,9 @@ pipeline {
                 build job: 'package3a-test-deploy-to-stage'
             }
             post {
+                success {
                 echo 'DUPA'
+                }
             }
         }
     }
