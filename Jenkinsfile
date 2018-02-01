@@ -1,38 +1,20 @@
 pipeline {
     agent any
-    stages{
-        stage('Build'){
+
+    stages {
+        stage('Build') {
             steps {
-                bat 'mvn clean package'
-            }
-            post {
-                success {
-                    echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/*.war'
-                }
+                echo 'Building..'
             }
         }
-        stage('Deploy to Staging'){
+        stage('Test') {
             steps {
-                build job: 'Deploy-to-staging'
+                echo 'Testing..'
             }
         }
-         stage ('Deploy to Production'){
-            steps{
-                timeout(time:5, unit:'DAYS'){
-                    input message:'Approve PRODUCTION Deployment?'
-                }
-
-                build job: 'Deploy-to-Prod'
-            }
-            post {
-                success {
-                    echo 'Code deployed to Production.'
-                }
-
-                failure {
-                    echo ' Deployment failed.'
-                }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
             }
         }
     }
